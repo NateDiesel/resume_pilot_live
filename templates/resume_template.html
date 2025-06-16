@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ name }}'s Resume</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="resume">
+        <h1>{{ name }}</h1>
+        <p><strong>Email:</strong> {{ email }}</p>
+        <p><strong>Phone:</strong> {{ phone }}</p>
+
+        <h2>Skills</h2>
+        <ul>
+            {% for skill in skills %}
+            <li>{{ skill }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Experience</h2>
+        <ul>
+            {% for job in experience %}
+            <li>{{ job }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Education</h2>
+        <ul>
+            {% for edu in education %}
+            <li>{{ edu }}</li>
+            {% endfor %}
+        </ul>
+
+        {% if tier == "free" %}
+        <div class="watermark">Generated with Resume SaaS Free Tier</div>
+        {% endif %}
+    </div>
+</body>
+</html>

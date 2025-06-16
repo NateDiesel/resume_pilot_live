@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Review Resume</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen p-8">
+    <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-6 space-y-4">
+        <h1 class="text-2xl font-bold text-blue-600 mb-4">📝 Review & Edit Resume</h1>
+        <form method="post" action="/finalize">
+            <input type="hidden" name="user_id" value="{{ user_id }}">
+            <textarea name="resume_text" rows="20"
+                class="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >{{ resume_text }}</textarea>
+            <button type="submit"
+                class="mt-4 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
+            >Finalize & Download</button>
+        </form>
+
+<div class="mt-4 text-center">
+  <p class="text-sm text-gray-500">Need more resumes or extra features?</p>
+  <a href="/subscribe/premium" class="inline-block mt-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+    Upgrade to Premium
+  </a>
+</div>
+
+    </div>
+
+<div class="bg-gray-100 p-4 rounded-lg mt-6">
+  <h2 class="text-lg font-semibold text-blue-600 mb-2">📊 Resume Score</h2>
+  <div id="score-content" class="text-sm text-gray-800">
+    <p>Analyzing resume...</p>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const resumeText = document.querySelector('textarea[name="resume_text"]').value;
+    fetch("/score", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ resume_text: resumeText })
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("score-content").innerHTML = `<ul class="list-disc pl-4 space-y-1">
+        <li><strong>Overall Score:</strong> ${data.overall_score}/10</li>
+        <li><strong>ATS Readiness:</strong> ${data.ats}</li>
+        <li><strong>Length Check:</strong> ${data.length}</li>
+        <li><strong>Tone Match:</strong> ${data.tone}</li>
+        <li><strong>Suggestions:</strong> ${data.suggestions}</li>
+      </ul>`;
+    })
+    .catch(() => {
+      document.getElementById("score-content").innerHTML = "<p class='text-red-500'>Error scoring resume.</p>";
+    });
+  });
+</script>
+
+</body>
+</html>

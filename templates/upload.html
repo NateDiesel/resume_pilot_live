@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Your Resume</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Upload Existing Resume</h1>
+    {% if error %}
+    <p style="color:red;">{{ error }}</p>
+    {% endif %}
+    <form action="/upload-resume" method="post" enctype="multipart/form-data">
+        <label>User ID:</label><br>
+        <input type="text" name="user_id" required><br><br>
+
+        <label>Select Resume File (PDF or DOCX):</label><br>
+        <input type="file" name="file" accept=".pdf,.docx" required><br><br>
+
+        <button type="submit">Upload Resume</button>
+    </form>
+</body>
+</html>

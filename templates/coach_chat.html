@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Resume Coach</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-blue-50 min-h-screen flex items-center justify-center p-4">
+
+  <div class="w-full max-w-2xl bg-white rounded-2xl shadow-2xl p-6 border border-gray-200">
+    <h1 class="text-3xl font-extrabold text-blue-700 mb-6 text-center">🧠 AI Resume Coach</h1>
+
+    {% if not user_id %}
+    <form method="post" action="/start" class="mb-6">
+      <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Enter your email to begin:</label>
+      <input type="email" id="email" name="email" required placeholder="you@example.com"
+        class="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4">
+      <button type="submit"
+        class="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition font-semibold">
+        Start Coaching
+      </button>
+    </form>
+
+<div class="mt-4 text-center">
+  <p class="text-sm text-gray-500">Need more resumes or extra features?</p>
+  <a href="/subscribe/premium" class="inline-block mt-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+    Upgrade to Premium
+  </a>
+</div>
+
+    {% else %}
+    
+    <div class="space-y-4 max-h-[55vh] overflow-y-auto mb-6 border-t border-gray-200 pt-4">
+      {% for message in history %}
+        {% if message.role == 'user' %}
+          <div class="text-right">
+            <div class="inline-block bg-blue-100 text-blue-800 px-4 py-2 rounded-xl">
+              <strong>You:</strong> {{ message.content }}
+            </div>
+          </div>
+        {% else %}
+          <div class="text-left">
+            <div class="inline-block bg-gray-100 text-gray-800 px-4 py-2 rounded-xl">
+              <strong>Coach:</strong> {{ message.content }}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <form method="post" action="/coach" class="flex gap-2">
+      <input type="hidden" name="user_id" value="{{ user_id }}">
+      <textarea name="message" rows="2" placeholder="Ask your coach..." required
+        class="flex-grow border border-gray-300 rounded-xl p-3 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+      ></textarea>
+      <button type="submit"
+        class="bg-blue-600 text-white px-5 rounded-xl hover:bg-blue-700 transition"
+      >Send</button>
+    </form>
+
+<div class="mt-4 text-center">
+  <p class="text-sm text-gray-500">Need more resumes or extra features?</p>
+  <a href="/subscribe/premium" class="inline-block mt-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+    Upgrade to Premium
+  </a>
+</div>
+
+    {% endif %}
+  </div>
+
+</body>
+</html>

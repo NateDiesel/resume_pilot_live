@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Resume Coach</title>
+    <link href="/static/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="chat-container">
+        <h2>🤖 AI Resume Coach</h2>
+        <div id="chat-box">
+            {% for msg in history %}
+                <p><strong>{{ msg.role }}:</strong> {{ msg.content }}</p>
+            {% endfor %}
+        </div>
+        <form method="post">
+            <input type="text" name="message" placeholder="Ask your coach..." required>
+            <button type="submit">Send</button>
+        </form>
+
+        <form action="/upload" method="post" enctype="multipart/form-data" style="margin-top: 1em;">
+            <label for="resume">📎 Upload your current resume (optional):</label>
+            <input type="file" name="resume" accept=".pdf,.doc,.docx" required>
+            <button type="submit">Upload</button>
+        </form>
+
+        <div style="margin-top: 1em;">
+            <small>Need more resumes or extra features?</small><br>
+            <a href="/upgrade"><button style="background-color: green; color: white;">Upgrade to Premium</button></a>
+        </div>
+    </div>
+</body>
+</html>

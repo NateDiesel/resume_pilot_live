@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Review Your Resume</title>
+    <meta charset="UTF-8" />
+    <style>
+        body { font-family: Arial, sans-serif; padding: 2rem; background: #f9f9f9; }
+        h1 { color: #333; }
+        .resume-box { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .download-btn { display: inline-block; margin-top: 1rem; padding: 0.5rem 1rem; background: #007BFF; color: white; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Review Your Resume</h1>
+    <div class="resume-box">
+        <pre>{{ resume_text }}</pre>
+        <a href="{{ pdf_path }}" class="download-btn">Download PDF</a>
+    </div>
+
+<hr>
+<h2>Tailor Your Resume to a Job Description</h2>
+<form action="/tailor_resume" method="post">
+  <label for="resume_text">Paste Your Resume Text:</label><br>
+  <textarea name="resume_text" rows="10" cols="80">{{ resume_text }}</textarea><br><br>
+  <label for="job_description">Paste Job Description:</label><br>
+  <textarea name="job_description" rows="10" cols="80"></textarea><br><br>
+  <button type="submit">Tailor My Resume</button>
+</form>
+
+</body>
+</html>
