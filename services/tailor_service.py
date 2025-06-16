@@ -3,7 +3,7 @@ from openai import OpenAI
 import os
 
 # Initialize OpenAI (uses OPENAI_API_KEY from env)
-client = OpenAI()
+client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 def tailor_resume_to_job(resume_text: str, job_description: str) -> str:
     prompt = f"""
